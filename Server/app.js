@@ -44,4 +44,5 @@ app.use("/job", jobRoute);
 app.get("/home", async (req, res) => {
   const jobs = await Job.find({}).limit(8);
   res.json(jobs);
+  res.send("Hello Home");
 });

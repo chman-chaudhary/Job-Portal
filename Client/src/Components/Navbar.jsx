@@ -23,7 +23,7 @@ export default function Navbar() {
       navigate("/login");
       setBtnText("Get Started");
     } else {
-      let response = await axios.get("http://localhost:3000/logout", { withCredentials: true });
+      let response = await axios.get("https://recruitment-agency-api.vercel.app/logout", { withCredentials: true });
       if (response.data.success) {
         setBtnText("Get Started");
       }
@@ -37,7 +37,7 @@ export default function Navbar() {
       setBtnText("Get Started");
     } else {
       try {
-        let response = await axios.get(`http://localhost:3000/profile/`, { withCredentials: true });
+        let response = await axios.get(`https://recruitment-agency-api.vercel.app/profile/`, { withCredentials: true });
         const { success, isLogin, username } = response.data;
         if (isLogin, success) {
           navigate(`/profile/${username}`);

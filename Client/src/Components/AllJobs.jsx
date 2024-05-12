@@ -8,7 +8,7 @@ export default function AllJobs() {
 
     useEffect(() => {
         const fetchData = async () => {
-            let response = await axios.get("http://localhost:3000/job");
+            let response = await axios.get("https://recruitment-agency-api.vercel.app/job");
             setJobs(response.data);
         };
         fetchData();

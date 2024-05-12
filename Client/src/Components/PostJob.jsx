@@ -93,7 +93,7 @@ export default function PostJob() {
       const jobData = { ...formData };
 
       try {
-        let response = await axios.post("http://localhost:3000/job/new", jobData, { withCredentials: true });
+        let response = await axios.post("https://recruitment-agency-api.vercel.app/job/new", jobData, { withCredentials: true });
         const { message, success, id, isLogin } = response.data;
         if (success && isLogin) {
           handleSuccess(message);

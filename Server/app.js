@@ -20,7 +20,6 @@ app.use(bodyParser.json());
 app.use(
   cors({
     origin: ["https://recruitment-agency.vercel.app"],
-    credentials: true,
   })
 );
 app.use(cookieParser());

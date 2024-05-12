@@ -37,12 +37,15 @@ app.listen(3000, () => {
   console.log("App listening on port 3000");
 });
 
-app.use("/", authRoute);
-app.use("/profile", profileRouter);
-app.use("/job", jobRoute);
-
-app.get("/home", async (req, res) => {
-  const jobs = await Job.find({}).limit(8);
-  res.json(jobs);
-  res.send("Hello Home");
+app.get("/", (req, res) => {
+  res.send("HEllo");
 });
+// app.use("/", authRoute);
+// app.use("/profile", profileRouter);
+// app.use("/job", jobRoute);
+
+// app.get("/home", async (req, res) => {
+//   const jobs = await Job.find({}).limit(8);
+//   res.json(jobs);
+//   res.send("Hello Home");
+// });

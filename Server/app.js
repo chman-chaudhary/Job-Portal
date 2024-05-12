@@ -19,7 +19,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: [process.env.FE_URL],
+    origin: ["https://recruitment-agency.vercel.app"],
     credentials: true,
   })
 );

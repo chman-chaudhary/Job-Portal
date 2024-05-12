@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+  background: #000;
+}
+
+.navbar-fonts, .custom-fonts {
+    font-family: 'Unbounded', Helvetica, sans-serif;
+}
+
+::-webkit-scrollbar {
+    background-color: black;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #4525FF;
+    border-radius: 6px;
+}
+
+.navbar-links:hover {
+  transform: translateY(-3px);
+  background-color: rgba(174,174,174,0.2);
+  transition: all 0.3s ease-in;
+}
+
+.revolution-img {
+  background-image: url("https://unicorn-cdn.b-cdn.net/81f3b812-1225-44cf-9544-2ea6ac0272a9/1-(1).png?width=600&height=400");
+  background-size: cover;
+}
+
+/* Checkbox */
+.check-box {
+  cursor: pointer;
+}
+
+.check-box input {
+  display: none;
+}
+
+.check-box svg {
+  overflow: visible;
+}
+
+.check-box-path {
+  fill: none;
+  stroke: white;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+  stroke-dasharray: 241 9999999;
+  stroke-dashoffset: 0;
+}
+
+.check-box input:checked ~ svg .check-box-path {
+  stroke-dasharray: 70.5096664428711 9999999;
+  stroke-dashoffset: -262.2723388671875;
+}

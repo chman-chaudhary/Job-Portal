@@ -30,7 +30,7 @@ export default function ProfileTemp() {
 
     useEffect(() => {
         const fetchData = async () => {
-            let response = await axios.get(`https://recruitment-agency-api.vercel.app/profile/${params.username}`, { withCredentials: true });
+            let response = await axios.get(`http://localhost:3000/profile/${params.username}`, { withCredentials: true });
             const { profileInfo, appliedJobs, postedJobs, isOwner } = response.data;
             setIsOwner(isOwner);
             setAppliedJobs(appliedJobs);

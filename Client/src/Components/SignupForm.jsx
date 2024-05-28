@@ -24,7 +24,7 @@ function SignupForm() {
 
     const onSubmit = async (data) => {
         try {
-            let response = await axios.post("https://recruitment-agency-api.vercel.app/signup", data, { withCredentials: true });
+            let response = await axios.post("http://localhost:3000/signup", data, { withCredentials: true });
             if (response.data.success) {
                 navigate("/new");
             } else {

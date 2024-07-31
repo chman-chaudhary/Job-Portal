@@ -20,7 +20,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["https://connectr.vercel.app"],
+    origin: ["https://job-portal-client-c4a7.onrender.com"],
     credentials: true,
   })
 );

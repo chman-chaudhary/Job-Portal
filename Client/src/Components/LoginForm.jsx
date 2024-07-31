@@ -26,8 +26,8 @@ function LoginForm() {
 
     const onSubmit = async (data) => {
         try {
-            let response = await axios.post("https://job-portal-server-91sy.onrender.com/login", data, {
-                withCredentials: true,
+            let response = await axios.post('https://job-portal-server-91sy.onrender.com/login', data, {
+                withCredentials: true
             });
             if (response.data.success) {
                 navigate("/");
@@ -35,7 +35,7 @@ function LoginForm() {
                 setResponseMessage(response.data.message);
             }
         } catch (error) {
-            console.log("Error in Registering Student:", error);
+            console.log("Error in Registering User:", error);
         }
     };
 

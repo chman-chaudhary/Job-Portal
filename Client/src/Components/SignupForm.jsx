@@ -31,7 +31,7 @@ function SignupForm() {
                 setResponseMessage(response.data.message);
             }
         } catch (error) {
-            console.log("Error in Registering Student:", error);
+            console.log("Error in Registering User:", error);
         }
     };
 

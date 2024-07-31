@@ -22,6 +22,7 @@ app.use(bodyParser.json());
 app.use(
   cors({
     origin: "https://job-portal-client-c4a7.onrender.com",
+    methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
 );

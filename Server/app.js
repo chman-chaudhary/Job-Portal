@@ -18,12 +18,14 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(bodyParser.json());
+
 app.use(
   cors({
-    origin: ["https://job-portal-client-c4a7.onrender.com"],
+    origin: "https://job-portal-client-c4a7.onrender.com",
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 
 main()
@@ -34,10 +36,6 @@ async function main() {
   await mongoose.connect(dbUrl);
 }
 
-app.listen(PORT, () => {
-  console.log("App listening on port 3000");
-});
-
 app.use("/", authRoute);
 app.use("/profile", profileRouter);
 app.use("/job", jobRoute);
@@ -46,4 +44,8 @@ app.get("/home", async (req, res) => {
   const jobs = await Job.find({}).limit(8);
   res.json(jobs);
   res.send("Hello Home");
+});
+
+app.listen(PORT, () => {
+  console.log("App listening on port 3000");
 });

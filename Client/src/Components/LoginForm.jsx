@@ -26,7 +26,7 @@ function LoginForm() {
 
     const onSubmit = async (data) => {
         try {
-            let response = await axios.post('https://job-portal-server-91sy.onrender.com/login', data, {
+            let response = await axios.post('job-portal-backend-phi.vercel.app/login', data, {
                 withCredentials: true
             });
             if (response.data.success) {

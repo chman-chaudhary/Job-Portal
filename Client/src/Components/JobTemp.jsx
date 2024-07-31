@@ -33,7 +33,7 @@ export default function JobTemp() {
 
     useEffect(() => {
         const fetchData = async () => {
-            let response = await axios.get(`https://job-portal-server-91sy.onrender.com/job/${params.id}`, { withCredentials: true });
+            let response = await axios.get(`job-portal-backend-phi.vercel.app/job/${params.id}`, { withCredentials: true });
             const { img, username, employerName, isApplicant, isOwner, applicants } = response.data;
             if (isApplicant) {
                 setApplyBtnTxt("APPLIED");
@@ -50,7 +50,7 @@ export default function JobTemp() {
 
     const applyJob = () => {
         const sendApplyRqst = async () => {
-            let response = await axios.post(`https://job-portal-server-91sy.onrender.com/job/${job._id}`, {}, { withCredentials: true });
+            let response = await axios.post(`job-portal-backend-phi.vercel.app/job/${job._id}`, {}, { withCredentials: true });
             if (response.data.success) {
                 setApplyBtnTxt("APPLIED");
             }

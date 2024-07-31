@@ -8,7 +8,7 @@ export default function AllJobs() {
 
     useEffect(() => {
         const fetchData = async () => {
-            let response = await axios.get("https://job-portal-server-91sy.onrender.com/job");
+            let response = await axios.get("job-portal-backend-phi.vercel.app/job");
             setJobs(response.data);
         };
         fetchData();

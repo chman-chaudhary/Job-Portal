@@ -6,7 +6,7 @@ export default function Company() {
 
   useEffect(() => {
     let fetchData = async () => {
-      let response = await axios.get("https://job-portal-server-91sy.onrender.com/companies");
+      let response = await axios.get("job-portal-backend-phi.vercel.app/companies");
       console.log(response.data);
       setCompanyData(response.data);
     };

@@ -30,7 +30,7 @@ export default function ProfileTemp() {
 
     useEffect(() => {
         const fetchData = async () => {
-            let response = await axios.get(`https://job-portal-server-91sy.onrender.com/profile/${params.username}`, { withCredentials: true });
+            let response = await axios.get(`job-portal-backend-phi.vercel.app/profile/${params.username}`, { withCredentials: true });
             const { profileInfo, appliedJobs, postedJobs, isOwner } = response.data;
             setIsOwner(isOwner);
             setAppliedJobs(appliedJobs);

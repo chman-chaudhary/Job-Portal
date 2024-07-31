@@ -24,7 +24,7 @@ function SignupForm() {
 
     const onSubmit = async (data) => {
         try {
-            let response = await axios.post("https://job-portal-server-91sy.onrender.com/signup", data, { withCredentials: true });
+            let response = await axios.post("job-portal-backend-phi.vercel.app/signup", data, { withCredentials: true });
             if (response.data.success) {
                 navigate("/new");
             } else {

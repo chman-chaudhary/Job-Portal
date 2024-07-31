@@ -93,7 +93,7 @@ export default function PostJob() {
       const jobData = { ...formData };
 
       try {
-        let response = await axios.post("https://job-portal-server-91sy.onrender.com/job/new", jobData, { withCredentials: true });
+        let response = await axios.post("job-portal-backend-phi.vercel.app/job/new", jobData, { withCredentials: true });
         const { message, success, id, isLogin } = response.data;
         if (success && isLogin) {
           handleSuccess(message);

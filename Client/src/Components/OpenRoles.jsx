@@ -8,7 +8,7 @@ export default function OpenRoles() {
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await axios.get("https://job-portal-server-91sy.onrender.com/home");
+      let response = await axios.get("job-portal-backend-phi.vercel.app/home");
       setRoles(response.data);
     }
     fetchData();

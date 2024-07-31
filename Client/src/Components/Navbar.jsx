@@ -22,7 +22,7 @@ export default function Navbar() {
       navigate("/login");
       setBtnText("Get Started");
     } else {
-      let response = await axios.get("https://job-portal-server-91sy.onrender.com/logout", { withCredentials: true });
+      let response = await axios.get("job-portal-backend-phi.vercel.app/logout", { withCredentials: true });
       if (response.data.success) {
         setBtnText("Get Started");
       }
@@ -36,7 +36,7 @@ export default function Navbar() {
       setBtnText("Get Started");
     } else {
       try {
-        let response = await axios.get(`https://job-portal-server-91sy.onrender.com/profile/`, { withCredentials: true });
+        let response = await axios.get(`job-portal-backend-phi.vercel.app/profile/`, { withCredentials: true });
         const { success, isLogin, username } = response.data;
         if (isLogin, success) {
           navigate(`/profile/${username}`);

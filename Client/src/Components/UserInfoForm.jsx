@@ -48,7 +48,7 @@ export default function UserInfoForm() {
         formData.append('about', data.about);
         // formData.append('isStudent', data.selectOption.value);
         try {
-            let response = await axios.post("http://localhost:3000/profile/new", formData, {
+            let response = await axios.post("https://job-portal-server-91sy.onrender.com/profile/new", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }, withCredentials: true,

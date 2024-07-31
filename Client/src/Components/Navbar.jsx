@@ -8,7 +8,6 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
   const [btnText, setBtnText] = useState("Get Started");
-  const [tokenValue, setTokenValue] = useState("");
 
   useEffect(() => {
     if (cookies.token && cookies.token !== "") {
@@ -23,7 +22,7 @@ export default function Navbar() {
       navigate("/login");
       setBtnText("Get Started");
     } else {
-      let response = await axios.get("http://localhost:3000/logout", { withCredentials: true });
+      let response = await axios.get("https://job-portal-server-91sy.onrender.com/logout", { withCredentials: true });
       if (response.data.success) {
         setBtnText("Get Started");
       }
@@ -37,7 +36,7 @@ export default function Navbar() {
       setBtnText("Get Started");
     } else {
       try {
-        let response = await axios.get(`http://localhost:3000/profile/`, { withCredentials: true });
+        let response = await axios.get(`https://job-portal-server-91sy.onrender.com/profile/`, { withCredentials: true });
         const { success, isLogin, username } = response.data;
         if (isLogin, success) {
           navigate(`/profile/${username}`);

@@ -26,7 +26,7 @@ function LoginForm() {
 
     const onSubmit = async (data) => {
         try {
-            let response = await axios.post("http://localhost:3000/login", data, {
+            let response = await axios.post("https://job-portal-server-91sy.onrender.com/login", data, {
                 withCredentials: true,
             });
             if (response.data.success) {

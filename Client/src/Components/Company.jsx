@@ -6,7 +6,7 @@ export default function Company() {
 
   useEffect(() => {
     let fetchData = async () => {
-      let response = await axios.get("http://localhost:3000/companies");
+      let response = await axios.get("https://job-portal-server-91sy.onrender.com/companies");
       console.log(response.data);
       setCompanyData(response.data);
     };

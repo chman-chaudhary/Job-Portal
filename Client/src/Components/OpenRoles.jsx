@@ -8,7 +8,7 @@ export default function OpenRoles() {
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await axios.get("http://localhost:3000/home");
+      let response = await axios.get("https://job-portal-server-91sy.onrender.com/home");
       setRoles(response.data);
     }
     fetchData();

@@ -13,26 +13,28 @@ const profileRouter = require("./Routes/ProfileRoute.js");
 const authRoute = require("./Routes/AuthRoute.js");
 const jobRoute = require("./Routes/JobRoute.js");
 const dbUrl = process.env.DB_URL;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://connectr.vercel.app"],
+    credentials: true,
   })
 );
 app.use(cookieParser());
 
 main()
   .then(console.log("Connection Successfull"))
-  .catch((err) => console.log("Connection Failed"));
+  .catch((err) => console.log("Connection Failed", err));
 
 async function main() {
   await mongoose.connect(dbUrl);
 }
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("App listening on port 3000");
 });
 

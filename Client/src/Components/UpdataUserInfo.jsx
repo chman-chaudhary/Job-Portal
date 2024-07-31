@@ -67,7 +67,7 @@ export default function UpdateUserInfo() {
 
         console.log(validationErrors);
         try {
-            let response = await axios.put(`http://localhost:3000/profile/${params.username}`, formData, {
+            let response = await axios.put(`https://job-portal-server-91sy.onrender.com/profile/${params.username}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }, withCredentials: true,

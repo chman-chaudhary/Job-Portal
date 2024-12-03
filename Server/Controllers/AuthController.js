@@ -2,8 +2,9 @@ const User = require("../models/User.js");
 const { createSecretToken } = require("../init/SecretToken.js");
 const bcrypt = require("bcrypt");
 
-module.exports.Signup = async (req, res, next) => {
+module.exports.Signup = async (req, res) => {
   try {
+    console.log(req.body);
     const { email, password, username, createdAt } = req.body;
     const checkEmail = await User.findOne({ email });
     const checkUsername = await User.findOne({ username });
@@ -14,14 +15,12 @@ module.exports.Signup = async (req, res, next) => {
     }
     const user = await User.create({ email, password, username, createdAt });
     const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
+    res.status(201).json({
+      message: "User signed in successfully",
+      success: true,
+      user,
+      token,
     });
-    res
-      .status(201)
-      .json({ message: "User signed in successfully", success: true, user });
-    next();
   } catch (error) {
     console.error("Error in registering User:", error);
   }
@@ -42,21 +41,11 @@ module.exports.Login = async (req, res, next) => {
       return res.json({ message: "Incorrect password or email" });
     }
     const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
-    });
     res
       .status(201)
-      .json({ message: "User logged in successfully", success: true });
+      .json({ message: "User logged in successfully", success: true, token });
     next();
   } catch (error) {
     console.error(error);
   }
-};
-
-module.exports.Logout = (req, res, next) => {
-  res
-    .cookie("token", "")
-    .json({ message: "Logout Successfully", success: true });
 };

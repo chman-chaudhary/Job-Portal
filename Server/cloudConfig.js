@@ -10,7 +10,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "TalentBridge",
+    folder: "JobPortal",
     allowedFormats: ["png", "jpg", "jpeg"],
   },
 });

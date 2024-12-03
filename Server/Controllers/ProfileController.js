@@ -2,19 +2,10 @@
 const Employer = require("../models/Employer.js");
 const User = require("../models/User.js");
 const Job = require("../models/Job.js");
-const jwt = require("jsonwebtoken");
 
 module.exports.myProfile = async (req, res) => {
   try {
-    if (req.cookies.token === "undefined" || !req.cookies.token) {
-      return res.status(200).json({
-        message: "Please Login",
-        success: false,
-        isLogin: false,
-      });
-    }
-    let cookieData = jwt.verify(req.cookies.token, process.env.TOKEN_KEY);
-    const userId = cookieData.id;
+    const userId = req.userId;
     if (!userId) {
       return res.status(400).json({
         message: "Please Login",
@@ -47,17 +38,14 @@ module.exports.myProfile = async (req, res) => {
 module.exports.showProfile = async (req, res) => {
   try {
     const { username } = req.params;
-    let cookieData;
-    let isOwner = false;
-    if (req.cookies.token !== "" && req.cookies.token !== undefined) {
-      cookieData = jwt.verify(req.cookies.token, process.env.TOKEN_KEY);
-      const userId = cookieData.id;
-      const user = await User.findById(userId);
-      isOwner = user.username === username;
+    const userId = req.userId;
+    if (!userId) {
+      return res.status(400).json({ message: "Please Login", success: false });
     }
 
-    // let response = await Student.findOne({ username: username });
-    // if (!response) {
+    const user = await User.findById(userId);
+    const isOwner = user.username === username;
+
     let response = await Employer.findOne({ username: username });
     if (!response) {
       return res
@@ -74,9 +62,6 @@ module.exports.showProfile = async (req, res) => {
       appliedJobs,
       isOwner,
     });
-    // }
-    // const appliedJobs = await Job.find({ _id: { $in: response.appliedJobs } });
-    // res.json({ profileInfo: response, appliedJobs });
   } catch (error) {
     console.log("Error while searching profile:", error);
   }
@@ -84,13 +69,12 @@ module.exports.showProfile = async (req, res) => {
 
 module.exports.createProfile = async (req, res) => {
   try {
+    console.log(req.body);
     let url = 0;
     if (typeof req.file !== "undefined") {
       url = req.file.path;
     }
-    // let { isStudent } = req.body;
-    let cookieData = jwt.verify(req.cookies.token, process.env.TOKEN_KEY);
-    const userId = cookieData.id;
+    const userId = req.userId;
     if (!userId) {
       return res.status(400).json({
         message: "Please Login",
@@ -99,18 +83,12 @@ module.exports.createProfile = async (req, res) => {
       });
     }
     const { username, email } = await User.findById(userId);
-    // let newProfile;
-    // if (isStudent === "true") {
-    // newProfile = new Student({ ...req.body });
-    // } else {
     let newProfile = new Employer({ ...req.body });
-    // }
     newProfile.email = email;
     newProfile.username = username;
     if (url) {
       newProfile.img = url;
     }
-    // console.log(newProfile);
     let registeredProfile = await newProfile.save();
     if (registeredProfile) {
       res.status(201).json({
@@ -133,15 +111,7 @@ module.exports.createProfile = async (req, res) => {
 
 module.exports.updateProfile = async (req, res) => {
   try {
-    if (req.cookies.token === "" || !req.cookies.token) {
-      return res.status(200).json({
-        message: "Please Login",
-        success: false,
-        isLogin: false,
-      });
-    }
-    let cookieData = jwt.verify(req.cookies.token, process.env.TOKEN_KEY);
-    const userId = cookieData.id;
+    const userId = req.userId;
     if (!userId) {
       return res.status(200).json({
         message: "Please Login",

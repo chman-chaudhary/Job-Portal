@@ -1,8 +1,6 @@
 const Job = require("../models/Job.js");
 const Employer = require("../models/Employer.js");
 const User = require("../models/User.js");
-const jwt = require("jsonwebtoken");
-const Student = require("../models/Student.js");
 
 module.exports.jobs = async (req, res) => {
   try {
@@ -16,11 +14,7 @@ module.exports.jobs = async (req, res) => {
 
 module.exports.postJob = async (req, res) => {
   try {
-    let userId;
-    if (req.cookies.token !== "undefined" && req.cookies.token) {
-      const cookieData = jwt.verify(req.cookies.token, process.env.TOKEN_KEY);
-      userId = cookieData.id;
-    }
+    let userId = req.userId;
     if (!userId) {
       return res
         .status(400)
@@ -46,14 +40,10 @@ module.exports.postJob = async (req, res) => {
 
 module.exports.showJob = async (req, res) => {
   try {
-    let userId,
+    let userId = req.userId,
       isApplicant = false,
       currUser,
       isOwner = false;
-    if (req.cookies.token !== "undefined" && req.cookies.token) {
-      const cookieData = jwt.verify(req.cookies.token, process.env.TOKEN_KEY);
-      userId = cookieData.id;
-    }
     const { id } = req.params;
     const job = await Job.findById(id);
     if (userId) {
@@ -99,12 +89,8 @@ module.exports.showJob = async (req, res) => {
 
 module.exports.applyJob = async (req, res) => {
   try {
-    let userId;
+    let userId = req.userId;
     let { id } = req.params;
-    if (req.cookies.token !== "undefined" && req.cookies.token) {
-      const cookieData = jwt.verify(req.cookies.token, process.env.TOKEN_KEY);
-      userId = cookieData.id;
-    }
     const job = await Job.findById(id);
     if (!job) {
       res.status(401).json({ message: "Job not found", success: false });
@@ -115,10 +101,8 @@ module.exports.applyJob = async (req, res) => {
     if (!username) {
       res.status(401).json({ message: "Please Login", success: false });
     }
-    // let jobseeker = await Student.findOne({ username });
-    // if (!jobseeker) {
+
     let jobseeker = await Employer.findOne({ username });
-    // }
     job.applicants.push(jobseeker._id);
     jobseeker.appliedJobs.push(id);
     await job.save();

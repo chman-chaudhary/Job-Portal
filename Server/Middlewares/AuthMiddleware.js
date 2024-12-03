@@ -1,19 +1,23 @@
-const User = require("../models/User.js");
-require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-module.exports.userVerification = (req, res) => {
-  const token = req.cookies.token;
-  if (!token) {
-    return res.json({ status: false });
+const authMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(403).json({ message: "Unauthorized" });
   }
-  jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
-    if (err) {
-      return res.json({ status: false });
+
+  const token = authHeader.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    if (decoded.id) {
+      req.userId = decoded.id;
+      next();
     } else {
-      const user = await User.findById(data.id);
-      if (user) return res.json({ status: true, user: user.username });
-      else return res.json({ status: false });
+      return res.status(403).json({ message: "Please Login" });
     }
-  });
+  } catch (error) {
+    return res.status(403).json({ message: "Error while authentication" });
+  }
 };
+
+module.exports = { authMiddleware };

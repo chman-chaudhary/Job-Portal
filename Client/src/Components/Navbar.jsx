@@ -1,57 +1,68 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
-import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies([]);
   const [btnText, setBtnText] = useState("Get Started");
 
   useEffect(() => {
-    if (cookies.token && cookies.token !== "") {
-      setBtnText("Logout");
-    } else {
+    if (
+      localStorage.getItem("token") === "" ||
+      !localStorage.getItem("token")
+    ) {
       setBtnText("Get Started");
+    } else {
+      setBtnText("Logout");
     }
-  }, [])
+  }, []);
 
   const handleClick = async () => {
-    if (cookies.token === "" || !cookies.token) {
+    if (
+      localStorage.getItem("token") === "" ||
+      !localStorage.getItem("token")
+    ) {
+      console.log("Navigating");
       navigate("/login");
       setBtnText("Get Started");
     } else {
-      let response = await axios.get("job-portal-backend-phi.vercel.app/logout", { withCredentials: true });
-      if (response.data.success) {
-        setBtnText("Get Started");
-      }
-      window.location.reload();
+      localStorage.removeItem("token");
+      setBtnText("Get Started");
     }
-  }
+  };
 
   const profile = async () => {
-    if (cookies.token === "" || !cookies.token) {
+    if (
+      localStorage.getItem("token") === "" ||
+      !localStorage.getItem("token")
+    ) {
       navigate("/login");
       setBtnText("Get Started");
     } else {
       try {
-        let response = await axios.get(`job-portal-backend-phi.vercel.app/profile/`, { withCredentials: true });
+        let response = await axios.get(`http://localhost:3000/profile/`, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
         const { success, isLogin, username } = response.data;
-        if (isLogin, success) {
+        if ((isLogin, success)) {
           navigate(`/profile/${username}`);
         }
       } catch (error) {
         console.log("Network Error");
       }
     }
-  }
+  };
 
   return (
     <div>
       <nav className="navbar-fonts bg-[rgba(0,0,0,0.1)] w-screen z-50 m-0 fixed top-0 h-[68px] backdrop-blur-md">
         <div className="navbar-fonts flex justify-between items-center py-2 px-3">
-          <Link to="/" ><div className="text-white">Logo</div></Link>
+          <Link to="/">
+            <div className="text-white font-cutom text-2xl px-4">NovaHire</div>
+          </Link>
           <div>
             <ul className="list-none">
               <li className="inline-block align-middle mr-4">
@@ -78,7 +89,8 @@ export default function Navbar() {
               <li className="inline-block align-middle mr-4">
                 <a
                   className="px-6 py-3 min-w-28 min-h-9 align-middle rounded-full bg-transparent border-transparent shadow-none overflow-hidden inline-block relative border-2 font-bold text-center cursor-pointer no-underline navbar-links"
-                  href="#" onClick={profile}
+                  href="#"
+                  onClick={profile}
                 >
                   <span className="text-[14px] text-white font-bold text-center cursor-pointer align-middle">
                     Profile

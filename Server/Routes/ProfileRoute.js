@@ -3,13 +3,19 @@ const Profile = require("../Controllers/ProfileController.js");
 const { storage } = require("../cloudConfig.js");
 const multer = require("multer");
 const upload = multer({ storage });
+const { authMiddleware } = require("../Middlewares/AuthMiddleware.js");
 
-router.get("/", Profile.myProfile);
-router.post("/new", upload.single("img"), Profile.createProfile);
+router.get("/", authMiddleware, Profile.myProfile);
+router.post(
+  "/new",
+  authMiddleware,
+  upload.single("img"),
+  Profile.createProfile
+);
 
 router
   .route("/:username")
-  .get(Profile.showProfile)
-  .put(upload.single("img"), Profile.updateProfile);
+  .get(authMiddleware, Profile.showProfile)
+  .put(authMiddleware, upload.single("img"), Profile.updateProfile);
 
 module.exports = router;

@@ -6,7 +6,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
 
 const Job = require("./models/Job.js");
 const profileRouter = require("./Routes/ProfileRoute.js");
@@ -20,8 +19,6 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(cors());
-
-app.use(cookieParser());
 
 main()
   .then(console.log("Connection Successfull"))
@@ -38,7 +35,6 @@ app.use("/job", jobRoute);
 app.get("/home", async (req, res) => {
   const jobs = await Job.find({}).limit(8);
   res.json(jobs);
-  res.send("Hello Home");
 });
 
 app.listen(PORT, () => {

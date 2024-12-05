@@ -49,7 +49,7 @@ module.exports.showProfile = async (req, res) => {
     let response = await Employer.findOne({ username: username });
     if (!response) {
       return res
-        .status(400)
+        .status(200)
         .json({ message: "User not found", success: false });
     }
     const postedJobs = await Job.find({ _id: { $in: response.postedJobs } });
@@ -61,6 +61,7 @@ module.exports.showProfile = async (req, res) => {
       postedJobs,
       appliedJobs,
       isOwner,
+      success: true,
     });
   } catch (error) {
     console.log("Error while searching profile:", error);

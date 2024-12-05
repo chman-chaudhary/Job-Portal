@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-// import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 export default function ProfileTemp() {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [isOwner, setIsOwner] = useState(false);
   const [userData, setUserData] = useState({
@@ -30,20 +30,29 @@ export default function ProfileTemp() {
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await axios.get(
-        `http://localhost:3000/profile/${params.username}`,
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
+      try {
+        let response = await axios.get(
+          `http://localhost:3000/profile/${params.username}`,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        );
+
+        if (!response.data.success) {
+          navigate("/");
         }
-      );
-      const { profileInfo, appliedJobs, postedJobs, isOwner } = response.data;
-      setIsOwner(isOwner);
-      setAppliedJobs(appliedJobs);
-      setUserData(profileInfo);
-      if (postedJobs) {
-        setPostedJobs(postedJobs);
+
+        const { profileInfo, appliedJobs, postedJobs, isOwner } = response.data;
+        setIsOwner(isOwner);
+        setAppliedJobs(appliedJobs);
+        setUserData(profileInfo);
+        if (postedJobs) {
+          setPostedJobs(postedJobs);
+        }
+      } catch (e) {
+        console.log("Error while fetching user", e);
       }
     };
     fetchData();

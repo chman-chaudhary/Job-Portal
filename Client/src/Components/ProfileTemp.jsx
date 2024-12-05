@@ -80,8 +80,9 @@ export default function ProfileTemp() {
               <h2 className="text-3xl font-medium">
                 {userData.firstname} {userData.lastname}
               </h2>
-              <h4 className="text-lg mt-2">{userData.heading}</h4>
+              <h4 className="text-lg mt-2 pr-10">{userData.heading}</h4>
               <p className="text-lg mt-3">
+                <i className="fa-solid fa-location-dot mr-2"></i>
                 {userData.city}, {userData.region}, {userData.country}
               </p>
             </div>

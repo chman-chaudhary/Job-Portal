@@ -1,35 +1,36 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
   background: #000;
 }
 
-.navbar-fonts, .custom-fonts {
-    font-family: 'Unbounded', Helvetica, sans-serif;
+.navbar-fonts,
+.custom-fonts {
+  font-family: "Unbounded", Helvetica, sans-serif;
 }
 
 ::-webkit-scrollbar {
-    background-color: black;
-    width: 8px;
+  background-color: black;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #4525FF;
-    border-radius: 6px;
+  background-color: #4525ff;
+  border-radius: 6px;
 }
 
 .navbar-links:hover {
   transform: translateY(-3px);
-  background-color: rgba(174,174,174,0.2);
+  background-color: rgba(174, 174, 174, 0.2);
   transition: all 0.3s ease-in;
 }
 
 .revolution-img {
-  background-image: url("https://unicorn-cdn.b-cdn.net/81f3b812-1225-44cf-9544-2ea6ac0272a9/1-(1).png?width=600&height=400");
+  background-image: url("About.jpg");
   background-size: cover;
 }
 
